@@ -1,0 +1,48 @@
+class Solution:
+    def longestCommonPrefix(self, strs: List[str]) -> str:
+
+        trie = Trie()
+
+        for word in strs:
+            trie.insert(word)
+
+        prefix = ""
+        node = trie.root
+
+        while len(node.children) == 1 and not node.end:
+
+            ch = next(iter(node.children))
+
+            prefix += ch
+
+            node = node.children[ch]
+
+        return prefix
+
+
+
+
+
+
+class TrieNode:
+    def __init__(self):
+        self.children = {}
+        self.end = False
+
+class Trie:
+
+    def __init__(self):
+
+        self.root = TrieNode()
+
+    def insert(self, word):
+
+        node = self.root
+
+        for ch in word:
+            if ch not in node.children:
+
+                node.children[ch] = TrieNode()
+            node = node.children[ch]
+
+        node.end = True
